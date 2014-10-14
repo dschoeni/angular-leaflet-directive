@@ -30,7 +30,7 @@ angular.module("leaflet-directive").directive('geojson', function ($log, $rootSc
                                 layer.bindLabel(feature.properties.description);
                             }
 
-							if (typeof(layer.on) === typeof(Function)) {
+								if (typeof(layer.on) === typeof(Function)) {
 								layer.on({
 									mouseover: function (e) {
 										safeApply(leafletScope, function () {

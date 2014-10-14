@@ -469,29 +469,31 @@ angular.module("leaflet-directive").directive('geojson', ["$log", "$rootScope", 
                                 layer.bindLabel(feature.properties.description);
                             }
 
-                            layer.on({
-                                mouseover: function(e) {
-                                    safeApply(leafletScope, function() {
-                                        geojson.selected = feature;
-                                        $rootScope.$broadcast('leafletDirectiveMap.geojsonMouseover', e);
-                                    });
-                                },
-                                mouseout: function(e) {
-                                    if (resetStyleOnMouseout) {
-                                        leafletGeoJSON.resetStyle(e.target);
-                                    }
-                                    safeApply(leafletScope, function() {
-                                        geojson.selected = undefined;
-                                        $rootScope.$broadcast('leafletDirectiveMap.geojsonMouseout', e);
-                                    });
-                                },
-                                click: function(e) {
-                                    safeApply(leafletScope, function() {
-                                        geojson.selected = feature;
-                                        $rootScope.$broadcast('leafletDirectiveMap.geojsonClick', geojson.selected, e);
-                                    });
-                                }
-                            });
+								if (typeof(layer.on) === typeof(Function)) {
+								layer.on({
+									mouseover: function (e) {
+										safeApply(leafletScope, function () {
+											geojson.selected = feature;
+											$rootScope.$broadcast('leafletDirectiveMap.geojsonMouseover', e);
+										});
+									},
+									mouseout: function (e) {
+										if (resetStyleOnMouseout) {
+											leafletGeoJSON.resetStyle(e.target);
+										}
+										safeApply(leafletScope, function () {
+											geojson.selected = undefined;
+											$rootScope.$broadcast('leafletDirectiveMap.geojsonMouseout', e);
+										});
+									},
+									click: function (e) {
+										safeApply(leafletScope, function () {
+											geojson.selected = feature;
+											$rootScope.$broadcast('leafletDirectiveMap.geojsonClick', geojson.selected, e);
+										});
+									}
+								});
+							}
                         };
                     }
 
